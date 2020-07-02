@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/07/03/uU7bx3PdtcDZjMN.png">
 <meta property="og:image" content="https://i.loli.net/2020/07/03/GqCsNBXO9ZeWtAd.png">
 <meta property="article:published_time" content="2020-07-02T13:56:14.000Z">
-<meta property="article:modified_time" content="2020-07-02T19:37:24.109Z">
+<meta property="article:modified_time" content="2020-07-02T19:42:49.279Z">
 <meta property="article:author" content="tmc">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
@@ -220,7 +220,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-03 03:37:24" itemprop="dateModified" datetime="2020-07-03T03:37:24+08:00">2020-07-03</time>
+                <time title="修改时间：2020-07-03 03:42:49" itemprop="dateModified" datetime="2020-07-03T03:42:49+08:00">2020-07-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,9 +256,10 @@
 <h4 id="Pursuit（追逐）"><a href="#Pursuit（追逐）" class="headerlink" title="Pursuit（追逐）"></a>Pursuit（追逐）</h4><p>当智能体需要拦截一个会移动的目标的时候，pursuit就较为合适。pursuit也就是预判目标的走位，根据目标的当前速度预估对方在未来某个时间的位置，并向这个目标前进。有以下几个需要注意的点。  </p>
 <ul>
 <li>当智能体正对逃避者时，也即两者几乎速度方向相反时（例如夹角小于20度），可以退化为seek。  </li>
-<li>需要对预测的时间作出较好的折衷以平衡效率和准确度。例如正比于逃避者和追逐者的距离，反比于两者速度的差。  </li>
-<li>一些运动模型需要考虑使智能体转向偏移位置的时间，这里可以为预测时间加上一个正比于朝向向量的点积和最大转弯率的值来实现。<br><img src="https://i.loli.net/2020/07/02/SOARyHLgiKehcZ3.png" alt="追逐"></li>
+<li>需要对预测的时间作出较好的折衷以平衡效率和准确度。例如使预测时间正比于逃避者和追逐者的距离，反比于两者速度的差。  </li>
+<li>一些运动模型需要考虑使智能体转向偏移位置的时间，这时可以为预测时间加上一个正比于朝向向量的点积和最大转弯率的值来实现。 </li>
 </ul>
+<p><img src="https://i.loli.net/2020/07/02/SOARyHLgiKehcZ3.png" alt="追逐"></p>
 <h4 id="Evade（逃避）"><a href="#Evade（逃避）" class="headerlink" title="Evade（逃避）"></a>Evade（逃避）</h4><p>与pursuit完全相反，但是不需要检查面向方向。</p>
 <h4 id="Wander（徘徊）"><a href="#Wander（徘徊）" class="headerlink" title="Wander（徘徊）"></a>Wander（徘徊）</h4><p>使智能体在环境中随机走动。一个简单但不可行的做法是每帧计算出一个随机的速度，这会使得物体在场景中抖动而非平滑转弯。为使物体平滑转弯，可以使用Perlin噪声代替简单的随机数，虽然消耗过大但并非完全不可行。<br>书中介绍的方案来自Reynolds，在智能体的前端放置一个圆形，将一个目标限制在圆形上，每帧对这个目标添加一个随机位移，智能体再向这个随机目标移动。控制圆形的半径、圆心离智能体的距离、目标的随机位移大小就能得到不同风格的随机运动。  </p>
 <blockquote>
@@ -276,7 +277,7 @@
 <h4 id="Hide（隐藏）"><a href="#Hide（隐藏）" class="headerlink" title="Hide（隐藏）"></a>Hide（隐藏）</h4><p>hide行为旨在找到一个位置使得障碍物始终位于它和它想要躲避的另一智能体之间。适用于npc在开火时寻找掩体。具体实现可以先为附近的每个障碍物依据追逐者与障碍物的位置关系得到一个合适的隐藏点。例如圆形障碍物的隐藏点就位于追逐者与圆心的连线延长线上。再使用arrive抵达最近的隐藏点。如果附近没有合适的障碍物，退化为evade。如果需要实现智能体看见追逐者才会隐藏，可以在简单实现的基础上加入记忆功能，例如如果目标可见或在最近几秒看到过目标，智能体将隐藏，从而使行为更合理。  </p>
 <p><img src="https://i.loli.net/2020/07/03/uU7bx3PdtcDZjMN.png" alt="隐藏"></p>
 <h4 id="Path-Following（路径跟随）"><a href="#Path-Following（路径跟随）" class="headerlink" title="Path Following（路径跟随）"></a>Path Following（路径跟随）</h4><p>使智能体沿着预先设置的一系列路点移动。实现思路较为简单，略。</p>
-<h4 id="Offset-Pursuit（保持一定偏移的追逐）"><a href="#Offset-Pursuit（保持一定偏移的追逐）" class="headerlink" title="Offset Pursuit（保持一定偏移的追逐）"></a>Offset Pursuit（保持一定偏移的追逐）</h4><p>保持与领队相对位置不变的情况下追逐领队，实现类似大雁列队飞行、战斗组队的效果。得到要求的相对位置偏移，不直接追逐领队，而是追逐领队偏移后的相对位置即可。注意使用arrive而非seek使编队有序。</p>
+<h4 id="Offset-Pursuit（保持一定偏移的追逐）"><a href="#Offset-Pursuit（保持一定偏移的追逐）" class="headerlink" title="Offset Pursuit（保持一定偏移的追逐）"></a>Offset Pursuit（保持一定偏移的追逐）</h4><p>保持与领队相对位置不变的情况下追逐领队，实现类似大雁列队飞行、战斗组队的效果。首先得到要求的相对位置偏移，之后计算追逐时不直接追逐领队，而是追逐领队偏移后的相对位置。注意使用arrive而非seek使编队有序。</p>
 <h3 id="组行为"><a href="#组行为" class="headerlink" title="组行为"></a>组行为</h3><p><img src="https://i.loli.net/2020/07/03/GqCsNBXO9ZeWtAd.png" alt="组行为">  </p>
 <h4 id="Separation（分离）"><a href="#Separation（分离）" class="headerlink" title="Separation（分离）"></a>Separation（分离）</h4><p>操作智能体离开邻近的智能体，应用在许多智能体上将会使它们向四周展开，拉开距离。这里的实现是遍历附近的所有智能体，对每个邻近智能体，得到一个大小反比于距离，方向为互相远离的力，以这些力的合力作为智能体的最终运动参考。</p>
 <h4 id="Alignment（队列）"><a href="#Alignment（队列）" class="headerlink" title="Alignment（队列）"></a>Alignment（队列）</h4><p>保持一组智能体的朝向一致。迭代附近的所有智能体，得到一个平均的朝向向量，减去该智能体的朝向即可得到力的方向</p>
@@ -286,7 +287,7 @@
 <h4 id="带优先级的加权截断累计"><a href="#带优先级的加权截断累计" class="headerlink" title="带优先级的加权截断累计"></a>带优先级的加权截断累计</h4><p>计算出一个带优先级的加权的累计，再进行截断。这里不再为行为设定权值，而是设定优先级，例如避开障碍物比保持队形重要。这个方法迭代每一个可行的行为，计算力的总和。每次计算合力的累计后如果还有剩余的可操纵力，继续计算下一个优先级的力，如果没有剩余或已超出最大可操纵力，截断。</p>
 <h4 id="带优先级的抖动"><a href="#带优先级的抖动" class="headerlink" title="带优先级的抖动"></a>带优先级的抖动</h4><p>来自Reynolds的方法。该方法检查优先级的方法不固定，而是根据预设的概率，例如优先级较高的行为的力有0.9的概率被计算，而优先级较低的只有0.5。这一方案消耗较少但是会损失精确度。</p>
 <h3 id="平滑"><a href="#平滑" class="headerlink" title="平滑"></a>平滑</h3><p>当智能体的不同行为有冲突时，可能会发生一些抖动，这里有一个方案是分离朝向向量和速度向量，通过若干次更新变量步骤得到朝向向量的平均值。</p>
-<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="盲目搜索"><a href="#盲目搜索" class="headerlink" title="盲目搜索"></a>盲目搜索</h3><p>盲目搜索在搜索一个图时不考虑相关的边的开销，但是它们能区分不同的节点和边，为了遍历一个图或是找到两个点之间的路径，可以使用这些方法。例如dfs和bfs</p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="盲目搜索"><a href="#盲目搜索" class="headerlink" title="盲目搜索"></a>盲目搜索</h3><p>盲目搜索在搜索一个图时不考虑相关的边的开销，但是它们能区分不同的节点和边。为了遍历一个图或是找到两个点之间的路径，可以使用这些方法。例如dfs和bfs</p>
 <h3 id="基于开销的图搜索"><a href="#基于开销的图搜索" class="headerlink" title="基于开销的图搜索"></a>基于开销的图搜索</h3><p>考虑到边的权值的搜索。可以采用Dijkstra或是A*算法。 </p>
 <h4 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h4><p>Dijkstra算法每次构建SPT（最短路径树）的一条边，简要介绍思路如下  </p>
 <ul>
@@ -296,10 +297,10 @@
 <li>如此往复直到完成</li>
 </ul>
 <p>这样得到的SPT将包含找到的每一个节点的最短路径  </p>
-<h4 id="A-算法"><a href="#A-算法" class="headerlink" title="A*算法"></a>A*算法</h4><p>Dijkstra算法的一个改进，加入了启发因子（Heuristic）。对于边界上的点的开销计算，使用被修正的开销F决定节点在优先队列中的位置：  </p>
+<h4 id="A-算法"><a href="#A-算法" class="headerlink" title="A*算法"></a>A*算法</h4><p>Dijkstra算法的一个改进，加入了启发因子（Heuristic）。对于边界上的点的开销计算，使用被修正的开销 F 而非简单的离源节点距离决定节点在优先队列中的位置：  </p>
 <center>F = G + H</center>  
 
-<p>其中，G 为累计开销，H为启发因子，给出的是节点到目标节点的估计距离，常用的有欧几里得距离和曼哈顿距离。</p>
+<p>其中，G 为累计开销，H为启发因子，给出的是节点到目标节点的估计距离。常用的有欧几里得距离和曼哈顿距离。</p>
 
     </div>
 

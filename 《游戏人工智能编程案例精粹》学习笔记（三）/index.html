@@ -20,16 +20,26 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="关于《游戏人工智能编程案例精粹》的学习笔记。本节主要是模糊逻辑。">
+  <meta name="description" content="关于《游戏人工智能编程案例精粹》的学习笔记。本节主要是模糊集合的介绍以及模糊逻辑的应用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《游戏人工智能编程案例精粹》学习笔记（三）">
 <meta property="og:url" content="http://yoursite.com/%E3%80%8A%E6%B8%B8%E6%88%8F%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BC%96%E7%A8%8B%E6%A1%88%E4%BE%8B%E7%B2%BE%E7%B2%B9%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
 <meta property="og:site_name" content="tmc&#39;s blogs">
-<meta property="og:description" content="关于《游戏人工智能编程案例精粹》的学习笔记。本节主要是模糊逻辑。">
+<meta property="og:description" content="关于《游戏人工智能编程案例精粹》的学习笔记。本节主要是模糊集合的介绍以及模糊逻辑的应用。">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/OSanT4vrHXkiAUD.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/ewmYKyvUt2VAOC5.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/rmlBAc7YvbEyPGN.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/pWNMSLAjXUKqt9i.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/WuYZ1V3eDn7SFMK.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/gtPo7V2us5Xdhr4.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/QhPRO68eWZUJtAq.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/08/CoP1NMjae3xtyTn.png">
 <meta property="article:published_time" content="2020-07-07T19:27:39.000Z">
-<meta property="article:modified_time" content="2020-07-07T20:30:31.752Z">
+<meta property="article:modified_time" content="2020-07-08T14:00:01.530Z">
 <meta property="article:author" content="tmc">
+<meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/07/08/OSanT4vrHXkiAUD.png">
 
 <link rel="canonical" href="http://yoursite.com/%E3%80%8A%E6%B8%B8%E6%88%8F%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BC%96%E7%A8%8B%E6%A1%88%E4%BE%8B%E7%B2%BE%E7%B2%B9%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/">
 
@@ -206,7 +216,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-08 03:27:39 / 修改时间：04:30:31" itemprop="dateCreated datePublished" datetime="2020-07-08T03:27:39+08:00">2020-07-08</time>
+              <time title="创建时间：2020-07-08 03:27:39 / 修改时间：22:00:01" itemprop="dateCreated datePublished" datetime="2020-07-08T03:27:39+08:00">2020-07-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
+                </span>
             </span>
 
           
@@ -220,14 +239,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>关于《游戏人工智能编程案例精粹》的学习笔记。本节主要是模糊逻辑。</p>
+        <p>关于《游戏人工智能编程案例精粹》的学习笔记。本节主要是模糊集合的介绍以及模糊逻辑的应用。</p>
 <a id="more"></a>
 
-<h2 id="模糊集合"><a href="#模糊集合" class="headerlink" title="模糊集合"></a>模糊集合</h2><p>普通集合适用于一些非黑即白的情况，而实际情形通常有一些模棱两可的情形需要考虑，这时就需要引入模糊集合。</p>
+<h2 id="模糊集合"><a href="#模糊集合" class="headerlink" title="模糊集合"></a>模糊集合</h2><p>普通集合适用于一些非黑即白的情况，而实际情况通常有一些模棱两可的情形需要考虑。这时就需要引入模糊集合，仅为引入模糊逻辑所需，不作过多展开。</p>
 <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote>
-<p>给定一个论域U，那么从U到单位区间 [0,1] 的一个映射 μ：U-&gt;[0,1] 称为U上的一个模糊集，或U的一个模糊子集。  </p>
+<p>给定一个论域U，那么从U到单位区间 [0,1] 的一个映射 μ：U-&gt;[0,1] 称为U上的一个<strong>模糊集合</strong>，或U的一个模糊子集。  </p>
 </blockquote>
-<p>其中映射称为隶属函数，对于特定元素，该映射的值称为隶属度。通常简单的隶属函数为三角形或梯形。传统集合的隶属度则为0或1，也即属于或不属于。<br>这一概念由美国加利福尼亚大学控制论专家L.A.扎德于 1965 年率先提出，适用于我们熟悉的秃头悖论等玄学问题。</p>
+<p>其中映射称为<strong>隶属函数</strong>，对于特定元素，该映射的值称为<strong>隶属度</strong>。通常简单的隶属函数为三角形或梯形。传统集合的隶属度则为0或1，也即属于或不属于。<br>这一概念由美国加利福尼亚大学控制论专家L.A.扎德于 1965 年率先提出，适用于我们熟悉的秃头悖论等玄学问题。</p>
 <h3 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h3><p>设A与B是同一论域U上的两个模糊集合。</p>
 <p>模糊集合的包含：  </p>
 <center>A ⊂ B 即 μ<sub>A</sub>(u) ≤ μ<sub>B</sub>(u) ∀ u ∈ U</center>  
@@ -242,8 +261,110 @@
 
 <h3 id="基本运算定律"><a href="#基本运算定律" class="headerlink" title="基本运算定律"></a>基本运算定律</h3><p>模糊集合的运算同样满足恒等律，交换律，结合律，分配律，吸收律，同一律，对偶律等定律，不同的是互补律不满足，也即：</p>
 <center>A ∩ A` ≠ Ø </center>  
-<center>A ∪ A` ≠ E </center>  
+<center>A ∪ A` ≠ E </center>    
+此处E为模糊全集，满足  
+<center>μ<sub>E</sub>(u) = 1 ∀ u ∈ U</center>
+Ø为模糊空集，满足
+<center>μ<sub>Ø</sub>(u) = 0 ∀ u ∈ U</center>  
 
+<h3 id="限制词"><a href="#限制词" class="headerlink" title="限制词"></a>限制词</h3><p>限制词是一元运算符，用于修饰模糊集合的含义，常用的修饰词例如“极”，“非常”，“略”，“稍微”。对于一个模糊集合来说，这些修饰词的含义通常为对模糊集合的隶属度函数取平方或开根号。<br>例如，如果定义模糊子集“老”的隶属度函数为μ<sub>老</sub>(u)，且修饰词的隶属度函数如下：  </p>
+<center>μ<sub>极A</sub> = μ<sub>A</sub><sup>4</sup></center>  
+<center>μ<sub>非常A</sub> = μ<sub>A</sub><sup>2</sup></center>  
+<center>μ<sub>略A</sub> = μ<sub>A</sub><sup>0.5</sup></center>  
+<center>μ<sub>稍微A</sub> = μ<sub>A</sub><sup>0.25</sup></center>  
+则有  
+<center>μ<sub>极老</sub>(u) = μ<sub>老</sub><sup>4</sup>(u)</center>  
+<center>μ<sub>非常老</sub>(u) = μ<sub>老</sub><sup>2</sup>(u)</center>  
+<center>μ<sub>略老</sub>(u) = μ<sub>老</sub><sup>0.5</sup>(u)</center>  
+<center>μ<sub>稍微老</sub>(u) = μ<sub>老</sub><sup>0.25</sup>(u)</center>  
+这是非常直观的，因为集合使用这些修饰词后，标准也就应当比原先更为宽松或严格。
+
+<h3 id="模糊数"><a href="#模糊数" class="headerlink" title="模糊数"></a>模糊数</h3><p>连续论域U上的模糊数F是一个U上的正规凸模糊集合。其中正规指  </p>
+<center>max μ<sub>F</sub>(u) = 1</center>  
+凸集合指曲线上任意两点之间，曲线上的任意一点所表示的隶属度都大于或等于两点中隶属度较小的一个，也即
+<center>μ<sub>F</sub>(x) ≥ min { μ<sub>F</sub>(a) , μ<sub>F</sub>(b) } ∀ a,b ∈ U x ∈ [a,b]</center>  
+
+<h3 id="模糊语言变量"><a href="#模糊语言变量" class="headerlink" title="模糊语言变量"></a>模糊语言变量</h3><p>模糊语言变量（FLV）表示一个或多个模糊集合的合成，定量地表示一种概念或域。例如<br>目标朝向 = { 远左，左，中，右，远右 }<br>它的隶属函数形状集合（或为模糊形，模糊表面）可以如下所示<br><img src="https://i.loli.net/2020/07/08/OSanT4vrHXkiAUD.png" alt="目标朝向">  </p>
+<h2 id="掠夺者中的模糊逻辑"><a href="#掠夺者中的模糊逻辑" class="headerlink" title="掠夺者中的模糊逻辑"></a>掠夺者中的模糊逻辑</h2><p>了解完了基本概念，我们就可以看看如何在掠夺者中引入模糊集合来计算武器的期望分数。</p>
+<h3 id="模糊规则"><a href="#模糊规则" class="headerlink" title="模糊规则"></a>模糊规则</h3><p>传统的判断可能是这样的：<br>如果 Wizard.Health ≤ 0 那么 Wizard.Die()<br>但是模糊规则不同。在模糊系统中，判断可能是这样的：<br>如果 敌人受伤<strong>非常</strong>严重 那么 敌人逃跑 </p>
+<h3 id="为武器设计模糊语言变量"><a href="#为武器设计模糊语言变量" class="headerlink" title="为武器设计模糊语言变量"></a>为武器设计模糊语言变量</h3><p>设计模糊变量时，应当依据如下准则 </p>
+<ul>
+<li>通过模糊语言变量的任何垂直线，在每个与之相交的模糊集合的隶属度总和应为1。这保证了模糊形数值的平稳过渡。</li>
+<li>通过模糊语言变量的任何垂直线，应当只与两个或更少的模糊集合相交。这保证了模糊形足够简单易用</li>
+</ul>
+<p>例如使用火箭炮这一武器的期望取决于与敌人的距离和弹药量，其中模糊集合如下图所示：<br><img src="https://i.loli.net/2020/07/08/ewmYKyvUt2VAOC5.png" alt="截屏2020-07-08 下午8.23.32.png"><br><img src="https://i.loli.net/2020/07/08/rmlBAc7YvbEyPGN.png" alt="截屏2020-07-08 下午8.23.39.png"><br><img src="https://i.loli.net/2020/07/08/pWNMSLAjXUKqt9i.png" alt="截屏2020-07-08 下午8.23.48.png"></p>
+<h3 id="为武器设计模糊规则"><a href="#为武器设计模糊规则" class="headerlink" title="为武器设计模糊规则"></a>为武器设计模糊规则</h3><p>由于游戏中假想的火箭炮是一种爆炸范围较大，弹道较慢的武器，所以可以设计规则如下所示：  </p>
+<ol>
+<li>如果距离远且弹药超载，期望攻击</li>
+<li>如果距离远且弹药合适，不期望攻击</li>
+<li>如果距离远且弹药少，不期望攻击</li>
+<li>如果距离中等且弹药超载，非常期望攻击</li>
+<li>如果距离中等且弹药合适，非常期望攻击</li>
+<li>如果距离中等且弹药少，期望攻击</li>
+<li>如果距离近且弹药超载，不期望攻击</li>
+<li>如果距离近且弹药合适，不期望攻击</li>
+<li>如果距离近且弹药少，不期望攻击  </li>
+</ol>
+<h3 id="模糊推理"><a href="#模糊推理" class="headerlink" title="模糊推理"></a>模糊推理</h3><p>引入这些花里胡哨的概念的目的在于根据这些模糊的规则与对应的隶属度函数，以一组输入得到一个确定的输出值。这一输出值即可作为期望分数，与其他武器的期望分数相比较，从而让AI角色选择合适的武器。于是，对于一组输入，我们需要以如下形式进行模糊推理：  </p>
+<ul>
+<li>对于每条规则，根据输入数据计算前提条件的隶属度</li>
+<li>根据计算出的隶属度得到这一规则的推理结论隶属度</li>
+<li>综合所有规则的结论，得到一个单一的结论</li>
+<li>将结论去模糊化，得到期望分数  </li>
+</ul>
+<p>例如：<br>设输入条件中距离为200，弹药为8。<br>对于规则1，查阅上面的模糊形可知，距离200对于<strong>距离远</strong>的隶属度为0.33，弹药8对于<strong>子弹超载</strong>的隶属度为0。“且”这一连接词告知我们需要计算隶属度的交集，也即取值为min {0，0.33} = 0。所以这里规则1推导出的对<strong>期望攻击</strong>的隶属度为0。<br>类似地可以计算出，规则2推导出的对<strong>不期望攻击</strong>的隶属度为min {0.33,0.78} = 0.33。以此类推进行计算，结果可以归纳为如下一个矩阵，也即<strong>模糊联想矩阵（FAM）</strong><br><img src="https://i.loli.net/2020/07/08/WuYZ1V3eDn7SFMK.png" alt="FAM.png"><br>接下来，我们需要为这一矩阵得到一个单一的模糊集合结论。<br>首先，我们需要处理矩阵中的多重置信度，也即对于同一结论的好几个不同的隶属度，这里有两种常用的方案</p>
+<ul>
+<li>取和并截断到最大值（也即1）</li>
+<li>取最大值，也即“或”运算  </li>
+</ul>
+<p>这里我们采用第二种方案。可以得到如下的计算结果<br>|结论|置信度|<br>|—|—|<br>|不期望攻击|0.33|<br>|期望攻击|0.2|<br>|非常期望攻击|0.67|<br>接下来我们需要利用矩阵结果对原本的期望值模糊集合进行截断后合并处理。注意对比下图左侧的截断后结果与原本的期望值隶属度函数。<br><img src="https://i.loli.net/2020/07/08/gtPo7V2us5Xdhr4.png" alt="截断合并"><br>于是我们便得到了对应这组输入的新的模糊形。<br>最后一步是利用模糊形得到一个期望分数，也即去模糊化。这里有以下几种方案。</p>
+<ul>
+<li><p>最大值均值（MOM）<br>  这种算法的思路是计算具有最高置信度输出值的平均值。例如对于上面的合成模糊形，在右侧梯形的上方取到最值。而右侧梯形的左上顶点为66，右上顶点为100，便得到最大值均值83，作为期望分数。<br>  这一方法的问题是为了效率抛弃了左侧的大量数据。  </p>
+</li>
+<li><p>中心法<br>  这是一种准确而复杂的方法。它的思路是通过采样大致确定模糊形的重心。其公式如下：<br>  <img src="https://i.loli.net/2020/07/08/QhPRO68eWZUJtAq.png" alt="中心法公式"><br>  其中，s是每个采样点的值，DOM(s)是对应的模糊语言变量的隶属度。显而易见，被取样值的越多，这一算法越准确。实践中通常使用10到20个采样点。<br>  例如对于上面的模糊语言变量，采样取10、20、30 …… 100，共计10个采样点。它们对应的隶属度分别为0.33、0.33、0.53、0.53、0.2、0.6、0.87、0.67、0.67、0.67（部分值为看图估计），故：<br>  Desirability = （10 * 0.33 + 20 * 0.33 + …… + 100 * 0.67）/（0.33 + 0.33 + …… + 0.67）<br>  也即 334.8/5.4 = 62  </p>
+</li>
+<li><p>最大值平均<br>  这一方法的计算较为简单，而且结果接近于中心法，适合使用于实际的项目之中。<br>  一个模糊集合的最大值或代表值也就是对这个集合的隶属度为1的值。对于梯形集合而言，这意味着上方两顶点的平均值，退化为三角形时结论自然变为三角形上顶点。<br>  最大值平均（MaxAv）去模糊方法的公式如下：<br>  <img src="https://i.loli.net/2020/07/08/CoP1NMjae3xtyTn.png" alt="最大值平均"><br>  对于上述模糊形，计算过程如下：<br>  首先得到各个集合的代表值</p>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>代表值</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不期望攻击</td>
+<td>12.5</td>
+<td>0.33</td>
+</tr>
+<tr>
+<td>期望攻击</td>
+<td>50</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>非常期望攻击</td>
+<td>87.5</td>
+<td>0.67</td>
+</tr>
+<tr>
+<td>代入公式计算： Desirability = （1.25 * 0.33 + 50 * 0.2 + 87.5 * 0.67）/（0.33 + 0.2 + 0.67） = 72.75 / 1.2 = 60.625</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>于是我们便利用模糊逻辑得到了所需的期望分数，计算不同武器的期望分数即可作为AI的选择依据。</p>
+<h3 id="库博方法"><a href="#库博方法" class="headerlink" title="库博方法"></a>库博方法</h3><p>在看到上面定义的模糊规则时，你可能已经想到，仅仅是两条三种情况的模糊语言变量，却产生了3 * 3 = 9条模糊规则。显而易见，模糊规则的数量会随着模糊语言变量的复杂度与数量飞速增加。幸运的是，库博方法可以解决这一问题。<br>库博方法通过拆解，使规则增加的速度降低为线性。其基于一个简单规则：<br>如果距离远且弹药超载，期望攻击 在逻辑上等价于<br>如果距离远，期望攻击<br>或 如果弹药超载，期望攻击<br>前述的9条规则在库博方法的简化后如下：  </p>
+<ol>
+<li>如果距离近，不期望攻击</li>
+<li>如果距离中等，非常期望攻击</li>
+<li>如果距离远，不期望攻击</li>
+<li>如果弹药少，不期望攻击</li>
+<li>如果弹药合适，期望攻击</li>
+<li>如果弹药超载，非常期望攻击<br>这一简化的方法并不直观，甚至完全变换了原本的规则。但神奇的是仅需变换规则本身而不用改变其余部分，代码即可适用于库博规则，其得到的期望分数与传统的模糊逻辑推理程序十分类似。例如前述规则使用库博规则后得到的期望分数为57.16，近似于之前的60.625。</li>
+</ol>
 
     </div>
 
@@ -252,6 +373,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+            <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+          </div>
 
         
 
@@ -322,7 +446,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模糊集合"><span class="nav-number">1.</span> <span class="nav-text">模糊集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算"><span class="nav-number">1.2.</span> <span class="nav-text">运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本运算定律"><span class="nav-number">1.3.</span> <span class="nav-text">基本运算定律</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模糊集合"><span class="nav-number">1.</span> <span class="nav-text">模糊集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算"><span class="nav-number">1.2.</span> <span class="nav-text">运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本运算定律"><span class="nav-number">1.3.</span> <span class="nav-text">基本运算定律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制词"><span class="nav-number">1.4.</span> <span class="nav-text">限制词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊数"><span class="nav-number">1.5.</span> <span class="nav-text">模糊数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊语言变量"><span class="nav-number">1.6.</span> <span class="nav-text">模糊语言变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#掠夺者中的模糊逻辑"><span class="nav-number">2.</span> <span class="nav-text">掠夺者中的模糊逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊规则"><span class="nav-number">2.1.</span> <span class="nav-text">模糊规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为武器设计模糊语言变量"><span class="nav-number">2.2.</span> <span class="nav-text">为武器设计模糊语言变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为武器设计模糊规则"><span class="nav-number">2.3.</span> <span class="nav-text">为武器设计模糊规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊推理"><span class="nav-number">2.4.</span> <span class="nav-text">模糊推理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#库博方法"><span class="nav-number">2.5.</span> <span class="nav-text">库博方法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

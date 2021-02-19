@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="关于《Game AI Pro》 Efficient Crowd Simulation for Mobile Games 的学习笔记。主要涉及构建高效的人群模拟。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Game AI Pro》高效的人群模拟">
+<meta property="og:url" content="http://yoursite.com/%E3%80%8AGAP%E3%80%8B%E9%AB%98%E6%95%88%E7%9A%84%E4%BA%BA%E7%BE%A4%E6%A8%A1%E6%8B%9F/index.html">
+<meta property="og:site_name" content="tmc&#39;s blogs">
+<meta property="og:description" content="关于《Game AI Pro》 Efficient Crowd Simulation for Mobile Games 的学习笔记。主要涉及构建高效的人群模拟。">
+<meta property="article:published_time" content="2021-02-19T14:29:16.000Z">
+<meta property="article:modified_time" content="2021-02-19T17:09:51.060Z">
+<meta property="article:author" content="tmc">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/%E3%80%8AGAP%E3%80%8B%E9%AB%98%E6%95%88%E7%9A%84%E4%BA%BA%E7%BE%A4%E6%A8%A1%E6%8B%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>《Game AI Pro》高效的人群模拟 | tmc's blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tmc's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="search-pop-overlay">
+  <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E3%80%8AGAP%E3%80%8B%E9%AB%98%E6%95%88%E7%9A%84%E4%BA%BA%E7%BE%A4%E6%A8%A1%E6%8B%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="tmc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tmc's blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《Game AI Pro》高效的人群模拟
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-19 22:29:16" itemprop="dateCreated datePublished" datetime="2021-02-19T22:29:16+08:00">2021-02-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-20 01:09:51" itemprop="dateModified" datetime="2021-02-20T01:09:51+08:00">2021-02-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E3%80%8AGame-AI-Pro%E3%80%8B/" itemprop="url" rel="index"><span itemprop="name">《Game AI Pro》</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关于《Game AI Pro》 Efficient Crowd Simulation for Mobile Games 的学习笔记。主要涉及构建高效的人群模拟。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>人群模拟是游戏人工智能行业不断探索和尝试的课题。现代游戏中充斥着越来越多的AI控制的智能体。因此，创建一个真实、稳健、对设计者友好的运动系统势在必行。<br>虽然许多路径可能有相似的部分，传统的寻路方法为各个智能体计算单独的路径。这些冗余的路径计算限制了在移动设备上对大量单位的模拟。<br>移动塔防游戏《Fieldrunners 2》使用矢量流场和操纵行为的组合来有效地模拟成千上万的智能体，即所谓的单位。本文将介绍Fieldrunners 2所采用的流场生成、流采样和单位移动的系统以及动态人群模拟系统的构建和平衡过程。</p>
+<h2 id="网格"><a href="#网格" class="headerlink" title="网格"></a>网格</h2><p>网格提供了游戏世界的差异化，并定义了单位可以在其中移动的区域。对于《Fieldrunners 2》，网格单元的大小比最宽的单位略宽，因此每个计算出的路径都可以被每个单位通过。每个网格单元可以是<strong>open</strong>的，表示一个单位可以通过，也可以是<strong>blocked</strong>的，表示该单元无法通过。  </p>
+<h2 id="流场"><a href="#流场" class="headerlink" title="流场"></a>流场</h2><p>单位依照静态矢量流场在网格中移动。<strong>流场</strong>表示网格中每个单元的最佳路径方向，是连续流函数的近似值。对于给定的一组目的点，流函数定义了一个归一化向量的向量场，表示到最近目的点的最佳路径方向。流函数类似于流体动力学中描述流动的常用方法，不同之处在于所有的流向量都是归一化的。鉴于这个定义，我们可以将流场定义为流函数的离散。<br>流场以与标准寻路系统相同的方式引导单位到达最近的目的地；然而，单位的路径信息被记录在流场中，消除了单位单独计算路径的需要。<br>流场是针对每一个潜在目的点集的，因此可以被所有共享一组目的地点的单位使用。由于流场表述的是整个游戏世界的路径信息，所以除非网格的可通行区域或目的点集合发生变化，否则它不需要更新。<br>例如，如果一座横跨河流的桥被摧毁了，那么流场只需要重新计算一次，以说明可通行区域的变化。跟随该流场的单位将根据游戏世界的变化而隐性地改变各自的路径。<br>流场由每个网格单元的单个归一化向量组成。一个流场和一组唯一的目的点一起称为<strong>路径</strong>。例如，对应于m乘n网格的路径是一组m*n个归一化向量和一组一个或多个目的点构成的点集。由于表示流函数所需的向量数量，这种方法可能会产生极高的内存使用率。内存消耗与网格单元数和独立路径数的乘积呈线性关系。Fieldrunners 2中的地图最多限制为三个唯一的路径，而且地图网格大小足够小，因此流场内存使用量并不是一个重要问题。<br>网格大小以及流场的分辨率并不需要很高，就能产生可信的运动特征。使用双线性插值，一个连续的流动函数可以从低分辨率流场中的四个最接近的向量中得到近似值。随着网格分辨率的增加，流场计算同一流函数的采样率越来越高。流场中矢量的双线性插值可以提高单位路径的连续性。  </p>
+<h2 id="流场的生成"><a href="#流场的生成" class="headerlink" title="流场的生成"></a>流场的生成</h2><p>流场是通过修改后的传统点对点寻路函数生成的。Fieldrunners 2中使用的算法是Dijkstra，但是，其他的寻路算法也能够生成流场。<br>Fieldrunners 2中使用的算法首先将每条路径的目的地的网格单元添加到开放列表中。随着Dijkstra算法的正常迭代，节点从开放列表中移除，并链接到附近计算出路径成本最低的单元格。当开放列表中的单元格被扩展时，新扩展的单元格的流向量被设置为指向它被链接到的单元格的方向。该算法不是在找到路径时终止，而是扩展所有添加到开放列表中的可通行单元格，为每个单元格分配一个流向量，并在开放列表为空时终止。<br>每当路径的目标集或网格的可遍历区域发生变化时，前面的算法就会为每个路径生成一个流场。  </p>
+<h2 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h2><p>Fieldrunners 2需要一个能够支持几十个不同单位的人群动力学系统，每个单位都有独特的运动特性。Fieldrunners 2中的单位是基于Boid模型的简单智能体。每个单位都有一组物理属性，和操纵行为共同控制其运动。单位的物理属性（如质量、大小，敏捷）定义了它独特的移动特性。<br>一个单位的操纵行为通过对其施加一组力来控制。这些转向力的优先组合会给单位施加一个加速度，从而实现真实的、可感知的智能运动。操纵行为在游戏中被广泛用于控制单位运动，并在许多出版物中进行了描述（例如《游戏人工智能编程案例精粹》,<a href="https://tmc0210.github.io/%E3%80%8A%E6%B8%B8%E6%88%8F%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BC%96%E7%A8%8B%E6%A1%88%E4%BE%8B%E7%B2%BE%E7%B2%B9%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">这里</a>是我的学习笔记）。在《Fieldrunners 2》中，作者对一些操纵行为的标准实现进行了修改，以支持更多的动态单元交互。</p>
+<h3 id="操纵行为"><a href="#操纵行为" class="headerlink" title="操纵行为"></a>操纵行为</h3><p>Fieldrunners 2中的单元使用了五种操纵行为。这五种行为按优先级降序排列，包括<strong>流场跟随</strong>（flow-field following）、<strong>避障</strong>（obstacle avoidance）、<strong>分离</strong>（separation）、<strong>队列</strong>（alignment）和<strong>聚集</strong>（cohesion）。在每个模拟步骤中，一个单元只受指定的转向力总大小的影响。操纵行为所产生的力按优先顺序加入到运行的总量中，并截断到最大值。其他任何未被添加到总量中的转向力都被忽略。也即带优先级的加权截断累计。  </p>
+<ul>
+<li>其中分离、队列和聚集共同描述了集群行为。集群行为用于使单位在靠近其他单位时，以群体的形式凝聚移动。  </li>
+<li>避障帮助速度较快的单位智能地绕过速度较慢的单位进行机动。避障操纵行为会产生一个垂直于单元速度的 “side stepping “力，并与邻近单元的位置和相对速度成比例。原始实现由于是考虑静态障碍，并不会考虑障碍的速度。  </li>
+<li>分离操纵行为产生的力是由邻近单元的动能与受力单元的动能之比来衡量的。质量和速度较小的单位（也即更灵活）将更容易让步于较大的，机动性较差的单位。原始实现则只与距离和方向有关。  </li>
+<li>流场跟随使单元按流场指定的方向移动。通过对四个最接近的流向量进行线性插值，计算出单元位置的流场方向。  </li>
+</ul>
+<p>于是，质量、最大截断力、最大速度和邻接半径属性描述了一个单位的独特行为。</p>
+<ul>
+<li>质量用于计算操纵行为产生的加速度，和单位的动能。</li>
+<li>最大截断力决定了在一个模拟步骤中可以影响单元的最大转向力。同时，单元的敏捷度被定义为单元的最大截断力与其质量的比值—单元的最大加速度。</li>
+<li>最大速度属性限制了单元的速度大小。</li>
+<li>邻接半径属性则限制了计算集群行为时考虑的半径。</li>
+</ul>
+<h3 id="校正单位的移动"><a href="#校正单位的移动" class="headerlink" title="校正单位的移动"></a>校正单位的移动</h3><p>我们有必要为每一个单位找到正确的属性值集，以产生期望的行为。在基于操纵行为的模拟中，这是非常困难的。设计者开发并使用了一种系统的校正参数方法来平衡Fieldrunners 2中的单位属性值集。为了简单起见，所有单位都使用了一套相同的加权的、先验的操纵行为，依靠它们的物理属性来实现独特的行为。以下为可参考的校正方法：    </p>
+<ol>
+<li>将最大速度属性设置为一个合理的值，其余的属性则给出一个任意的基础值。因为一个单元的最大速度最容易可视化，它提供了一个很好的调整起点。  </li>
+<li>调整最大截断力，以产生该类型单位的可信运动特征。因为最大截断力会影响单位的敏捷度，它将改变视觉方面，如转弯速度和制动能力。  </li>
+<li>给定一组同质的单位，单位邻接半径属性的变化结果可以很容易地单独观察。较小的邻接半径将使单元更紧密地聚集在一起，而增加邻接半径将使单元分散开来。  </li>
+<li>所有单元的质量都是相对调整的。注意当调整单位的质量时，其敏捷度必须保持不变，否则之前调整过的单位的移动特性就会改变。  </li>
+</ol>
+<h2 id="移动设备的限制与性能考察"><a href="#移动设备的限制与性能考察" class="headerlink" title="移动设备的限制与性能考察"></a>移动设备的限制与性能考察</h2><p>这种方法中最大的运行时性能问题是用于计算集群转向力的相邻单位列表的生成和处理。在Fieldrunners 2中，通过使用松散的四叉树来减少相邻单元搜索空间，性能问题得到了缓解。<br>移动处理器上的浮点运算可能会很慢，尽量减少路径和运动计算所需的运算次数也能带来改进。在Fieldrunners 2中，存储向量模的平方是一个常见的优化。这使得向量长度比较可以使用向量模的平方，消除了计算许多浮点平方根值的需要。<br>当大量单位需要导航到一组共同目标时，基于流场的系统提供了最大的好处。单位间每一个独特的目标位置集都需要一个单独的流场。随着独特的目标集数量的增加，维持必要的流场所需的计算和内存会变得非常复杂和庞大。表示流场所需的内存随着网格单元数的增加而线性增长，而寻路计算复杂度相当于所使用的寻路算法的最坏情况复杂度。在Fieldrunners 2的情况下，使用了Dijkstra算法，其产生的准线性时间复杂度取决于网格单元的数量。最小化流场内存消耗的一种方法是将流向量保存为 “北 “向量（通常为<0,1>）的特定旋转。当访问一个给定单元的流向时，已知的基础向量被重新创建并旋转到该单元的特定数量。另外，如果流向量恰好在特定的方向(例如，向量的基)，它们可以被存储为一个字节整数，其中的值对应于特定的方向。<br>随着移动硬件向多核处理器发展，正确利用多线程算法变得非常重要。产生多个流场的问题很容易被建模为一个并行过程。流场的相互独立性使得每个流场可以与其他流场并行计算，可能在不同的线程或进程中进行。操纵行为的组成和独立性使得它们也可以并行计算，只要它们被累积起来并集体应用到单元中。流场生成和操纵行为计算的内在并行性使得多线程本身的优化变得微不足道。</p>
+<h2 id="优势与改进"><a href="#优势与改进" class="headerlink" title="优势与改进"></a>优势与改进</h2><p>在《Fieldrunners 2》中选择了这种单位移动方式，是因为它提供了一系列独特的好处。流场域中预先计算并存储了路径信息，因此对于一个给定的世界配置，它只计算一次。流场域的这一特性在《Fieldrunners 2》中提供了显著的性能优势，因为世界的路径不经常被修改。<br>世界中所有位置的寻路信息都是一次性计算的，产生了与Dijkstra算法相当的基于网格大小的复杂度。传统的寻路方法的时间复杂度与单位数量呈线性关系，而这种方法的时间复杂度与模拟的单位数量呈线性关系。对于《Fieldrunners 2》来说，这使得具有数千个独立和多样化单元的复杂场景能够以较高的帧率在移动设备上运行。<br>像这种基于操纵行为的方法在定义独特的单元行为方面提供了极大的灵活性。操纵行为依靠单位的属性值集来定义复杂的行为，有利于模块化和封装化。新的操纵行为的属性值集或对现有操纵行为的修改都可以很容易地应用到单位中，以定义独特的运动风格。<br>基于流场的寻路技术提供了一种独特的方式，通过计算每个点的最佳路径来减少冗余的寻路计算。出于简单，Fieldrunners 2中使用的流场生成技术是基于Dijkstra算法的。更先进的寻路算法，如Theta*，可以生成更平滑的流场。流场还可以通过混合静态和动态流场来扩展。尽管有这些潜在的改进，但静态流场和操纵行为还是为Fieldrunners 2提供了一个高鲁棒性、真实的人群模拟。  </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+            <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E3%80%8AGAP%E3%80%8B%E4%BD%BF%E7%94%A8%E8%BD%AC%E5%90%91%E5%9C%88%E7%9A%84%E7%BC%96%E9%98%9F%E7%A7%BB%E5%8A%A8%E6%8A%80%E6%9C%AF/" rel="prev" title="《Game AI Pro》使用转向圈的编队移动技术">
+      <i class="fa fa-chevron-left"></i> 《Game AI Pro》使用转向圈的编队移动技术
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网格"><span class="nav-number">2.</span> <span class="nav-text">网格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流场"><span class="nav-number">3.</span> <span class="nav-text">流场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流场的生成"><span class="nav-number">4.</span> <span class="nav-text">流场的生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位"><span class="nav-number">5.</span> <span class="nav-text">单位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操纵行为"><span class="nav-number">5.1.</span> <span class="nav-text">操纵行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校正单位的移动"><span class="nav-number">5.2.</span> <span class="nav-text">校正单位的移动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动设备的限制与性能考察"><span class="nav-number">6.</span> <span class="nav-text">移动设备的限制与性能考察</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优势与改进"><span class="nav-number">7.</span> <span class="nav-text">优势与改进</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="tmc"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">tmc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tmc0210" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tmc0210" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:494521535@qq.com" title="E-Mail → mailto:494521535@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.holdice.club/" title="https:&#x2F;&#x2F;blog.holdice.club&#x2F;" rel="noopener" target="_blank">holdice's blogs</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://shiraha.cn/" title="https:&#x2F;&#x2F;shiraha.cn&#x2F;" rel="noopener" target="_blank">七海の参考書</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_39119496/article/details/103372437" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_39119496&#x2F;article&#x2F;details&#x2F;103372437" rel="noopener" target="_blank">Ashmore</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=52 src="//music.163.com/outchain/player?type=1&id=3190522&auto=0&height=32"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tmc</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">53k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">48 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
